@@ -80,7 +80,7 @@ export default class Functions extends ModuleBase {
    */
   httpsCallable(name: string): HttpsCallable {
     return (data?: any): HttpsCallablePromise => {
-      const promise = getNativeModule(this).httpsCallable(name, {
+      const promise = getNativeModule(this).httpsCallable(this._originUrl, name, {
         data,
       });
 
@@ -98,7 +98,7 @@ export default class Functions extends ModuleBase {
    * "http://10.0.0.8:1337".
    */
   useFunctionsEmulator(origin: string): Promise<null> {
-    return getNativeModule(this).useFunctionsEmulator(origin);
+    this._originUrl = origin;
   }
 }
 

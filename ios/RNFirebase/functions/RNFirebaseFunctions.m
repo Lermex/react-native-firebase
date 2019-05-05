@@ -13,6 +13,8 @@ RCT_EXPORT_METHOD(httpsCallable:
                   (NSString *) appName
                   region:
                   (NSString *) region
+                  origin:
+                  (NSString *) origin
                   name:
                   (NSString *) name
                   wrapper:
@@ -24,6 +26,10 @@ RCT_EXPORT_METHOD(httpsCallable:
                  ){
     FIRApp *firebaseApp = [RNFirebaseUtil getApp:appName];
     FIRFunctions *functions = [FIRFunctions functionsForApp:firebaseApp region:region];
+    
+    if (origin != nil) {
+        [functions useFunctionsEmulatorOrigin:origin];
+    }
     
     FIRHTTPSCallable *callable = [functions HTTPSCallableWithName:name];
     
